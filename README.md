@@ -46,7 +46,7 @@ Each time you click "Create Bars" it will create a new set of bars, movable by t
 
 ### ToDo List
 
-> This will be separated into a features/planned features list
+> This will be separated into a features/issued/planned features list
 
 &nbsp;
 

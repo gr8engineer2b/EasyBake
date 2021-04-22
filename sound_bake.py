@@ -1,13 +1,3 @@
-# \frac{K}{(1+\exp(\frac{b}{2}-b\cdot\frac{j\left[x\right]}{m}))}
-# \frac{\max\left(k\right)}{1+\exp\left(\left(\max\left(k\right)\left(\frac{b}{2}\right)\right)-\left(b\cdot k\left[d\right]\right)\right)} #doesn't work well due to exp() limiations
-# Code rep K/(1+exp(b/2-b*(x/m)))
-# https://www.desmos.com/calculator/7fo9sfswgl
-# ((math.asin(x/max*0.5-1))/(math.pi/max))+max*0.5
-# https://www.desmos.com/calculator/5av4jiaexe
-# the not dumb way^
-# https://www.desmos.com/calculator/ysusjmj0ly
-# smoothing algorithm
-
 import bpy
 import sys
 
@@ -48,24 +38,14 @@ def bake(context, object, filepath) :
 		ocount = len(empties)
 		czero = 16.35 # DO NOT CHANGE (unless you are me AND you know what you are doing... so don't change it, me)
 		exponent = 10 # ~16k highest frequency most can hear is 16000 - 18000 hz
-		# base = 128 # ~16k highest frequency most can hear is 16000 - 18000 hz
-		# base = 90 # ~16k highest frequency most can hear is 16000 - 18000 hz
-		# exponent = 10.3 # ~20khz if minfreq is A0 = 16.35 (440 12-TET)
-		# exponent = 10 # ~16khz if minfreq is A0 = 16.35 (440 12-TET)
-		# maxfreq = minfreq+(base**2)
 		minfreq = object.minimumfrequency
 		if minfreq < 20 : minfreq = 20
 		maxfreq = object.maximumfrequency
 		minlog = log(minfreq/16.35,2)
 		maxlog = log(maxfreq/16.35,2)-minlog # for operation below (even dist)
-		# resfreq = maxfreq-minfreq
 		dist = maxlog/ocount #even distribution dist
-		# dist = resfreq/ocount #even distribution dist
-		# dist = exponent/ocount #dist for TET distribution
-		# dist = ocount/base #alt dist for TET distribution
 		slopemod = 7.4
 		targetmax = 1
-		# freqgap = (minfreq*(2**dist))/2 # original
 		freqgap = 0.5 #this is for multiplication of the minimum frequency eg. 2 * 0.5
 
 		datapath = 'scale' # TODO: Implement choices through ui
@@ -75,11 +55,6 @@ def bake(context, object, filepath) :
 		globalhighpoint = 0.0
 
 		for x in empties :
-			#dist is the maxfreq divided by the number of bars maxfreq is around 16k
-			# freqmin = (asin(((minfreq*(2**(step*dist)))/(maxfreq*0.5)-1))/(pi/maxfreq)+maxfreq*0.5)-step*freqgap
-			# freqmax = (asin(((minfreq*(2**((step+1)*dist)))/(maxfreq*0.5)-1))/(pi/maxfreq)+maxfreq*0.5)+step*freqgap
-			#dist is the maxfreq divided by the number of bars maxfreq is around 16k
-			# freqmin = (asin(((minfreq+((step*dist)**2))/(maxfreq*0.5)-1))/(pi/maxfreq)+maxfreq*0.5)-step*freqgap
 			freqmin = czero*(2**(step*dist+minlog))
 			freqmax = freqmin+(freqmin*freqgap)
 			freqrange = str(round(freqmin))+" - "+str(round(freqmax)) #for documenting
@@ -115,24 +90,6 @@ def bake(context, object, filepath) :
 			if lowpoint < globallowpoint :
 				globallowpoint = lowpoint
 
-			# # old method that produces ugly results, in order to pull off a good smoothing algorithm one would need to iterate through and compare values on the same frame
-			# for point in rfcurve.keyframe_points :
-			# 	newpoint = (point.co[1]-lowpoint)/(highpoint-lowpoint)
-			# 	rfcurve.keyframe_points.insert(point.co[0],newpoint)
-
-			# # this method creates a floor and ceiling slightly lower and higher than one
-			# for point in rfcurve.keyframe_points :
-			# 	newpoint = targetmax/(1+exp(slopemod/2-slopemod*(point.co[1])))
-			# 	rfcurve.keyframe_points.insert(point.co[0],newpoint)
-
-			# # This is here in order to not have to collect points like above
-			# newlowpoint = targetmax/(1+exp(slopemod/2-slopemod*(lowpoint))) # easy grab of new min val because of above transform hp/1+exp(sm/2-sm etc.
-			# newhighpoint = targetmax/(1+exp(slopemod/2-slopemod*(highpoint))) # easy grab of new max val because of above transform hp/1+exp(sm/2-sm etc.
-			#
-			# for point in rfcurve.keyframe_points : # same method as above comented out section
-			# 	newpoint = (point.co[1]-newlowpoint)/(newhighpoint-newlowpoint)
-			# 	rfcurve.keyframe_points.insert(point.co[0],newpoint)
-
 			rfcurve.convert_to_samples(rfcurve.range()[0],rfcurve.range()[1]) # TODO: add ability to set beginning/end ?
 
 			x.select_set(0)
@@ -140,8 +97,6 @@ def bake(context, object, filepath) :
 			step += 1
 
 		if not globallowpoint == 0.0 and not globalhighpoint == 0.0 : #global smoothing
-			# globallowpoint = targetmax/(1+exp(slopemod/2-slopemod*(globallowpoint))) # easy grab of new min val because of above transform hp/1+exp(sm/2-sm etc.
-			# globalhighpoint = targetmax/(1+exp(slopemod/2-slopemod*(globalhighpoint))) # easy grab of new max val because of above transform hp/1+exp(sm/2-sm etc.
 
 			for x in empties :
 				rfcurve = x.animation_data.action.fcurves.find(datapath,index=dataindex)

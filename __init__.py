@@ -57,7 +57,6 @@ def propinit(): # TODO: probably not clean, doing this just in case to prevent l
 	Scene.bakerelease = FloatProperty(name="bakerelease", default=0.01, min=0.01, step=0.01)
 
 	Object.dataoptions = EnumProperty(
-		# items = [[x.data_path+"{x}".format(x="" if not "rotation" in x.data_path or "scale" in x.data_path or "location" in x.data_path else (" X" if x.array_index == 0 else (" Y" if x.array_index == 1 else " Z" ))), x.data_path, x.array_index] for x in bpy.context.active_object.animation_data.action.fcurves],
 		items = enum_populate,
 	)
 
@@ -134,7 +133,6 @@ class SoundBakeUI(Panel):
 		row = col.row()
 		row.label(text='Width: ')
 		row.prop(scene,'barwidth', text='Overall Width in Units')
-		# OLD row.menu('OBJECT_MT_barchoice', text='Select' if context.scene.barchoice == 0 else str(context.scene.barchoice))
 		row = col.row()
 		row.prop(scene,'barwidthmod', text='Width:')
 		row.operator('tool.bars_create', text='Create Bars')
@@ -424,7 +422,7 @@ def unregister(): # TODO: perhaps less code? combine?
 
 ### End Registration
 
-#
+# TODO: git mv to script version instead of having this commented code floating here
 # ### for use while running in blender as script instead of as an installed addon ###
 # if __name__ == '__main__':
 # 	register()
