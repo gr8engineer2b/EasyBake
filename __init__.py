@@ -1,52 +1,10 @@
-# -DONE: Fix Collection grabbing to create in current collections
-# -DONE: Create duplicater/easy way to duplicate bar systems
-# -DONE: Create/figure out way to apply material easily to all objects within heirarchy
-# TODO: apply material logic that doesn't overwrite material unless it shared the same material beforehand
-# TODO: Fix UI layout to be more streamlined/seperated (UI Update)
-# -DONE: add bake from zero prop to all areas
-# TODO: create property for object array handling with frequency spacing function from collection (custom bar type animation)
-# -WORKING: Test and create circular/curvable bar setup
-# TODO: revisit smoothing algorithm in sound_bake.py
-# TODO: create seperate frequency spacing function
-# TODO: figure out how to do background processing of sound baking function
-# -DONE: Make it clear that the custom range must be baked and is seperate from selecting an existing frequency
-# -DONE: Round Frequencies displayed in frequency object options
-# TODO: Error handling for invalid selections
-# TODO: logging for plugin
-# TODO: documentaction
-# TODO: extensive documentation
-# TODO: Error handling for unexpected values (say, low freq exceeds high freq)
-# TODO: Handle overwrite of existing curves
-# TODO: Handle more than one animation curve on an object
-# -FEASABILITY?- TODO: Create influence slider update function
-# -FEASABILITY?- TODO: Add background processing for frequency application func
-# TODO: Handle blender operation context errors and create function to put screen space back to previous in case of failure
-# TODO: Create sound file property
-# TODO: Create button for using other sounds files while sound file prop is filled (aka bypass/re-select)
-# TODO: add common path context for loc rot scl (or perhaps simply import basic keyframe menu)
-# TODO: create scale information collection logic to better apply scaling to data influence (wtf me?)
-# TODO: create 3d bar viz preset (for max cheese)
-# TODO: create preset creation classes
-# -FEASABILITY?- TODO: Create menu classes for easy adding
-# -DONE: create deletion logic to better clean objects
-# -DONE: clean objects function
-# -DONE: update function when object is deleted to trigger clean function?
-# TODO: do an insane sweep of plugin logic and ensure no toes would be stepped upon during normal plugin operation
-# TODO: more unique naming scheme for objects created by plugin for easier cleaning?
-# TODO: more streamlined function for using objects as a bar system?
-# -DONE: bars that move only up/down?
-# TODO: triangles (???)
-# -FEASABILITY? TODO: Add material context to bars empty?
-# TODO: Add option for frame limiting on animation data transfer
-# TODO: rFcurve managing (in the case of multiple)
-
 bl_info = {
-	'name': 'Easy Sound Bake',
+	'name': 'Easy Bake',
 	'author': 'gr8engineer2b',
 	'version': (1, 1, 5),
 	'blender': (2, 90, 0),
 	'location': 'Tool > Easy Bake',
-	'description': "Easy Sound Bake",
+	'description': "Easy Sound Baking",
 	'category': 'Tool',
 }
 
@@ -169,13 +127,13 @@ class SoundBakeUI(Panel):
 		col = layout.column() #converted from old column to new on-screen ui
 		row = col.row()
 		row.label(text='Bars: ')
-		row.prop(scene,'barchoice', text='')
+		row.prop(scene,'barchoice', text='Number of Bars')
 		row = col.row()
 		row.label(text='Height: ')
-		row.prop(scene,'barheight', text='')
+		row.prop(scene,'barheight', text='Overall Height in Units')
 		row = col.row()
 		row.label(text='Width: ')
-		row.prop(scene,'barwidth', text='')
+		row.prop(scene,'barwidth', text='Overall Width in Units')
 		# OLD row.menu('OBJECT_MT_barchoice', text='Select' if context.scene.barchoice == 0 else str(context.scene.barchoice))
 		row = col.row()
 		row.prop(scene,'barwidthmod', text='Width:')
@@ -183,7 +141,7 @@ class SoundBakeUI(Panel):
 
 		row = col.row()
 		row.label(text='Camera: ')
-		row.operator('tool.camera_create', text='Create/Repsoition Camera')
+		row.operator('tool.camera_create', text='Create/Reposition Camera')
 
 		row = col.row()
 		row.prop(scene,'bakefromzero', text='Bake from Frame 0')
