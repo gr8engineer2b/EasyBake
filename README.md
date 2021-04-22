@@ -56,26 +56,26 @@ Each time you click "Create Bars" it will create a new set of bars, movable by t
 &nbsp;
 
 - [x] : Fix Collection grabbing to create in current collections
-- [x] : Create duplicater/easy way to duplicate bar systems
-- [x] : Create/figure out way to apply material easily to all objects within heirarchy
+- [x] : Create duplicator/easy way to duplicate bar systems
+- [x] : Create/figure out way to apply material easily to all objects within hierarchy
 - [ ]  apply material logic that doesn't overwrite material unless it shared the same material beforehand
-- [ ] Fix UI layout to be more streamlined/seperated (UI Update)
+- [ ] Fix UI layout to be more streamlined/separated (UI Update)
 - [x] add bake from zero prop to all UI areas
 - [ ] create property for object array handling with frequency spacing function from collection (custom bar type animation)
 - [ ] Test and create circular/curvable bar setup
 - [ ] revisit smoothing algorithm in sound_bake.py
-- [ ] create seperate frequency spacing function
+- [ ] create separate frequency spacing function
 - [ ] figure out how to do background processing of sound baking function
-- [x] Make it clear that the custom range must be baked and is seperate from selecting an existing frequency
+- [x] Make it clear that the custom range must be baked and is separate from selecting an existing frequency
 - [x] Round Frequencies displayed in frequency object options
 - [ ] Error handling for invalid selections
 - [ ] logging for plugin
-- [ ] documentaction
+- [ ] documentation
 - [ ] extensive documentation
 - [ ] Error handling for unexpected values (say, low freq exceeds high freq)
 - [ ] Handle overwrite of existing curves
 - [ ] Handle more than one animation curve on an object
-- [ ] Handle blender operation context errors and create function to put screen space back to previous in case of ilure
+- [ ] Handle blender operation context errors and create function to put screen space back to previous in case of failure
 - [ ] Create sound file property
 - [ ] Create button for using other sounds files while sound file prop is filled (aka bypass/re-select)
 - [ ] add common path context for loc rot scl (or perhaps simply import basic keyframe menu)
@@ -88,7 +88,7 @@ Each time you click "Create Bars" it will create a new set of bars, movable by t
 - [ ] do an insane sweep of plugin logic and ensure no toes would be stepped upon during normal plugin operation
 - [ ] more unique naming scheme for objects created by plugin for easier cleaning?
 - [ ] more streamlined function for using objects as a bar system?
-- [x] bars that move only up/down? (bars originating from base insead of center)
+- [x] bars that move only up/down? (bars originating from base instead of center)
 - [ ] triangles (???)
 - [ ] Add option for frame limiting on animation data transfer
 - [ ] rfcurve management system (in the case of multiple)
