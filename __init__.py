@@ -383,9 +383,9 @@ class delete_children(Operator) :
 
 	def execute(self, context):
 		for x in object.selected_objects :
-            bpy.data.objects.remove(x)
+			bpy.data.objects.remove(x)
 		cleanbars(cleanobjects=True)
-        return {'FINISHED'}
+		return {'FINISHED'}
 
 
 ### End Classes
