@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "C:/blender_autocomplete/3.0"
+    ],
+    "python.linting.pylintArgs": [
+        "--init-hook",
+        "import sys; sys.path.append('C:/blender_autocomplete/3.0')"
+    ],
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pycodestyleEnabled": true,
+}
